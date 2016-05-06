@@ -21,5 +21,15 @@ describe Bicycle do
     end
   end
 
+  describe '#spare' do
+    before(:each) do
+      @bicycle = described_class.new(size: 'M', tape_colour: 'yellow')
+    end
 
+    it 'returns a hash of required spare parts' do
+      expected_spares = {chain: '10-speed',tire_size: '23',tape_colour: 'yellow'}
+      expect(@bicycle.spares).to eq expected_spares
+    end
+
+  end
 end

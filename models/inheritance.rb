@@ -7,4 +7,8 @@ class Bicycle
     @tape_colour = args[:tape_colour]
   end
 
+  def spares
+    {chain: '10-speed',tire_size: '23',tape_colour: tape_colour}
+  end
+
 end
