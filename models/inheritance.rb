@@ -44,7 +44,7 @@ class RoadBike < Bicycle
   end
 
   def _special_spares
-    {tape_colour: tape_colour}
+    {tape_colour:tape_colour}
   end
 
 end
@@ -63,7 +63,25 @@ class MountainBike < Bicycle
   end
 
   def _special_spares
-    {front_shock: front_shock,rear_shock: rear_shock}
+    {front_shock:front_shock,rear_shock:rear_shock}
+  end
+
+end
+
+class RecumbentBike < Bicycle
+
+  attr_reader :saddle
+
+  def _additional_init(args)
+    @saddle = args[:saddle]
+  end
+
+  def _default_tire_size
+    '18'
+  end
+
+  def _special_spares
+    {saddle:saddle}
   end
 
 end

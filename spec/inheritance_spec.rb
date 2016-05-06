@@ -94,3 +94,26 @@ describe MountainBike do
     end
   end
 end
+
+describe RecumbentBike do
+  before(:all) do
+    @recumbent_bike = described_class.new(size: 'M', saddle: 'Italia')
+  end
+
+  describe '#initialize/new' do
+    it 'initializes with a size which can be read as an attribute' do
+      expect(@recumbent_bike.size).to eq 'M'
+    end
+
+    it 'initializes with a saddle which can be read as an attribute' do
+      expect(@recumbent_bike.saddle).to eq 'Italia'
+    end
+  end
+
+  describe '#spare' do
+    it 'returns a hash of required spare parts for a recumbent bike' do
+      expected_spares = {chain:'10-speed',tire_size:'18',saddle:'Italia'}
+      expect(@recumbent_bike.spares).to eq expected_spares
+    end
+  end
+end
