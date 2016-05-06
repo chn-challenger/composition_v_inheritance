@@ -1,35 +1,63 @@
 class Bicycle
 
+  attr_reader :size
+
+  def initialize(args)
+    @size = args[:size]
+    _additional_init(args)
+  end
+
+  def _additional_init
+  end
+
+  def _default_chain
+    '10-speed'
+  end
+
+  def _default_tire_size
+    raise 'Subclass must implement'
+  end
+
 end
 
 class RoadBike < Bicycle
 
-  attr_reader :size, :tape_colour, :type, :front_shock, :rear_shock
+  attr_reader :tape_colour
 
-  def initialize(args)
-    @size = args[:size]
+  def _additional_init(args)
     @tape_colour = args[:tape_colour]
   end
 
+  def _default_tire_size
+    '23'
+  end
+
   def spares
-      {chain: '10-speed',tire_size: '23',tape_colour: tape_colour}
+      {chain: _default_chain,
+        tire_size: _default_tire_size,
+        tape_colour: tape_colour}
   end
 
 end
 
 class MountainBike < Bicycle
 
-  attr_reader :size, :tape_colour, :type, :front_shock, :rear_shock
+  attr_reader :front_shock, :rear_shock
 
-  def initialize(args)
-    @size = args[:size]
+  def _additional_init(args)
     @front_shock = args[:front_shock]
     @rear_shock = args[:rear_shock]
   end
 
+  def _default_tire_size
+    '2.1'
+  end
+
   def spares
-      {chain: '10-speed',tire_size: '2.1',front_shock: front_shock,
-        rear_shock: rear_shock}
+    {chain: _default_chain,
+      tire_size: _default_tire_size,
+      front_shock: front_shock,
+      rear_shock: rear_shock}
   end
 
 end

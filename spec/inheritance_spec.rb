@@ -82,7 +82,7 @@ describe MountainBike do
       shared_context 'mountain_bike initialize' do
         before(:all) do
           @mountain_bike = described_class.new(size: 'M', front_shock: 'Shimano',
-          rear_shock: 'Continental')
+            rear_shock: 'Continental')
         end
       end
 
@@ -105,12 +105,12 @@ describe MountainBike do
   describe '#spare' do
     before(:each) do
       @mountain_bike = described_class.new(size: 'M', front_shock: 'Shimano',
-      rear_shock: 'Continental')
+        rear_shock: 'Continental')
     end
 
     it 'returns a hash of required spare parts for a mountain bike' do
       expected_spares = {chain: '10-speed',tire_size: '2.1',front_shock: 'Shimano',
-      rear_shock: 'Continental'}
+        rear_shock: 'Continental'}
       expect(@mountain_bike.spares).to eq expected_spares
     end
   end
