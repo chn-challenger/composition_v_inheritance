@@ -18,6 +18,15 @@ class Bicycle
     raise 'Subclass must implement'
   end
 
+  def spares
+      {chain: _default_chain, tire_size: _default_tire_size}.
+        merge(_special_spares)
+  end
+
+  def _special_spares
+    {}
+  end
+
 end
 
 class RoadBike < Bicycle
@@ -32,10 +41,8 @@ class RoadBike < Bicycle
     '23'
   end
 
-  def spares
-      {chain: _default_chain,
-        tire_size: _default_tire_size,
-        tape_colour: tape_colour}
+  def _special_spares
+    {tape_colour: tape_colour}
   end
 
 end
@@ -53,11 +60,8 @@ class MountainBike < Bicycle
     '2.1'
   end
 
-  def spares
-    {chain: _default_chain,
-      tire_size: _default_tire_size,
-      front_shock: front_shock,
-      rear_shock: rear_shock}
+  def _special_spares
+    {front_shock: front_shock,rear_shock: rear_shock}
   end
 
 end
