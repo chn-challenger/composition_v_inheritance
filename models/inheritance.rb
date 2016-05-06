@@ -1,9 +1,10 @@
 class Bicycle
 
-  attr_reader :size, :chain
+  attr_reader :size, :chain, :tire_size
 
   def initialize(args)
     @size = args[:size]
+    @tire_size = args[:tire_size] || _default_tire_size
     @chain = args[:chain] || _default_chain
     _additional_init(args)
   end
@@ -11,16 +12,16 @@ class Bicycle
   def _additional_init(args)
   end
 
-  def _default_chain
-    '10-speed'
-  end
-
   def _default_tire_size
     raise 'Subclass must implement'
   end
 
+  def _default_chain
+    '10-speed'
+  end
+
   def spares
-      {chain: _default_chain, tire_size: _default_tire_size}.
+      {tire_size:tire_size,chain:chain}.
         merge(_special_spares)
   end
 
