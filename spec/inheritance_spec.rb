@@ -2,17 +2,39 @@ require './models/inheritance'
 
 describe Bicycle do
   describe '#initialize/new' do
-    context 'it initializes with a size' do
-      shared_context 'bicycle initialize' do
+    context 'it initializes with a size and default chain' do
+      shared_context 'bicycle initialize with no set chain' do
         before(:all) do
           @bicycle = described_class.new(size: 'M')
         end
       end
 
-      include_context 'bicycle initialize'
+      include_context 'bicycle initialize with no set chain'
 
       it 'initializes with a size which can be read as an attribute' do
         expect(@bicycle.size).to eq 'M'
+      end
+
+      it 'initializes with a default chain which can be read as an attribute' do
+        expect(@bicycle.chain).to eq '10-speed'
+      end
+    end
+
+    context 'it initializes with a size and non-default chain' do
+      shared_context 'bicycle initialize with set chain' do
+        before(:all) do
+          @bicycle = described_class.new(size: 'M',chain: '15-speed')
+        end
+      end
+
+      include_context 'bicycle initialize with set chain'
+
+      it 'initializes with a size which can be read as an attribute' do
+        expect(@bicycle.size).to eq 'M'
+      end
+
+      it 'initializes with a set chain which can be read as an attribute' do
+        expect(@bicycle.chain).to eq '15-speed'
       end
     end
   end
@@ -22,7 +44,7 @@ describe Bicycle do
       @bicycle = described_class.new(size: 'M')
     end
 
-    it 'raises error for default tire size' do
+    it 'raises error for no default tire size that subclass must implement' do
       expect{@bicycle.spares}.to raise_error 'Subclass must implement'
     end
 

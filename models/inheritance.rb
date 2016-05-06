@@ -1,9 +1,10 @@
 class Bicycle
 
-  attr_reader :size
+  attr_reader :size, :chain
 
   def initialize(args)
     @size = args[:size]
+    @chain = args[:chain] || _default_chain
     _additional_init(args)
   end
 
