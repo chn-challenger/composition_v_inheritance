@@ -7,7 +7,7 @@ class Bicycle
     _additional_init(args)
   end
 
-  def _additional_init
+  def _additional_init(args)
   end
 
   def _default_chain
