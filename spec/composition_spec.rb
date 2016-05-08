@@ -20,35 +20,35 @@ describe Bicycle2 do
   end
 end
 
-describe Parts do
-  describe '#initialize/new' do
-    it 'initialize with a collection of parts stored in parts attribute' do
-      part_1 = double(:part_1)
-      part_2 = double(:part_2)
-      parts_obj = described_class.new([part_1,part_2])
-      expect(parts_obj.parts).to eq [part_1,part_2]
-    end
-  end
-
-  describe '==' do
-    it 'returns true when all parts are equal' do
-      part_1 = double(:part_1)
-      part_2 = double(:part_2)
-      parts_1 = described_class.new([part_1,part_2])
-      parts_2 = described_class.new([part_1,part_2])
-      expect(parts_1).to eq parts_2
-    end
-  end
-
-  describe '#spare' do
-    it 'returns a parts object with a collect of needed spare parts' do
-      part_1 = double(:part_1,need_spare?:true,name:'chain',description:'10-speed')
-      part_2 = double(:part_2,need_spare?:true,name:'tire_size',description:'21')
-      part_3 = double(:part_3,need_spare?:false,name:'frame',description:'Specialized')
-      parts_obj = described_class.new([part_1,part_2,part_3])
-      spare_parts = described_class.new([part_1,part_2])
-      expect(parts_obj.spare).to eq spare_parts
-    end
-  end
+# describe Parts do
+#   describe '#initialize/new' do
+#     it 'initialize with a collection of parts stored in parts attribute' do
+#       part_1 = double(:part_1)
+#       part_2 = double(:part_2)
+#       parts_obj = described_class.new([part_1,part_2])
+#       expect(parts_obj.parts).to eq [part_1,part_2]
+#     end
+#   end
+#
+#   describe '==' do
+#     it 'returns true when all parts are equal' do
+#       part_1 = double(:part_1)
+#       part_2 = double(:part_2)
+#       parts_1 = described_class.new([part_1,part_2])
+#       parts_2 = described_class.new([part_1,part_2])
+#       expect(parts_1).to eq parts_2
+#     end
+#   end
+#
+#   describe '#spare' do
+#     it 'returns a parts object with a collect of needed spare parts' do
+#       part_1 = double(:part_1,need_spare?:true,name:'chain',description:'10-speed')
+#       part_2 = double(:part_2,need_spare?:true,name:'tire_size',description:'21')
+#       part_3 = double(:part_3,need_spare?:false,name:'frame',description:'Specialized')
+#       parts_obj = described_class.new([part_1,part_2,part_3])
+#       spare_parts = described_class.new([part_1,part_2])
+#       expect(parts_obj.spare).to eq spare_parts
+#     end
+#   end
 
 end
