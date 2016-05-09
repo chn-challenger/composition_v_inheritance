@@ -92,15 +92,52 @@ class NormalItem
     @quality = quality
   end
 
-  def to_s
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
-
   def update_item
     @sell_in -= 1 unless sell_in == 0
     @quality -= 1 unless quality == 0
     @quality -= 1 if sell_in == 0 && quality >= 1
-    # @quality = 0 if quality < 0
+  end
+end
+
+class AgedBrie
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
   end
 
+  def update_item
+    @sell_in -= 1 unless sell_in == 0
+    @quality += 1 unless quality == 50
+  end
+end
+
+class Sulfuras
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def update_item
+    @quality = 80 unless quality == 80
+  end
+end
+
+class BackStagePass
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def update_item
+    @quality = 80 unless quality == 80
+  end
 end
