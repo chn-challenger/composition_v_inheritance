@@ -99,6 +99,8 @@ class NormalItem
   def update_item
     @sell_in -= 1 unless sell_in == 0
     @quality -= 1 unless quality == 0
+    @quality -= 1 if sell_in == 0 && quality >= 1
+    # @quality = 0 if quality < 0
   end
 
 end

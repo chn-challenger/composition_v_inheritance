@@ -45,6 +45,63 @@ describe NormalItem do
         expect(@normal_item.quality).to eq 24
       end
     end
+
+    context 'normal item zero quality' do
+      shared_context 'zero quality' do
+        before(:all) do
+          @normal_item = NormalItem.new('Normal Rose',15,0)
+          @normal_item.update_item
+        end
+      end
+
+      include_context 'zero quality'
+
+      it 'updates the sell_in value of a normal item' do
+        expect(@normal_item.sell_in).to eq 14
+      end
+
+      it 'updates the quality value of a normal item' do
+        expect(@normal_item.quality).to eq 0
+      end
+    end
+
+    context 'normal item zero sell_in non-zero quality' do
+      shared_context 'zero sell_in non-zero quality' do
+        before(:all) do
+          @normal_item = NormalItem.new('Normal Rose',0,16)
+          @normal_item.update_item
+        end
+      end
+
+      include_context 'zero sell_in non-zero quality'
+
+      it 'updates the sell_in value of a normal item' do
+        expect(@normal_item.sell_in).to eq 0
+      end
+
+      it 'updates the quality value of a normal item' do
+        expect(@normal_item.quality).to eq 14
+      end
+    end
+
+    context 'normal item zero both' do
+      shared_context 'zero both' do
+        before(:all) do
+          @normal_item = NormalItem.new('Normal Rose',0,0)
+          @normal_item.update_item
+        end
+      end
+
+      include_context 'zero both'
+
+      it 'updates the sell_in value of a normal item' do
+        expect(@normal_item.sell_in).to eq 0
+      end
+
+      it 'updates the quality value of a normal item' do
+        expect(@normal_item.quality).to eq 0
+      end
+    end
   end
 end
 #
