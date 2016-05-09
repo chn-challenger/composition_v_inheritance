@@ -31,10 +31,11 @@ describe Parts do
       tire = Part.new(name:'tire',description:'21')
       shock = Part.new(name:'shock',description:'Shimano')
       # p shock
-      mountain_bike = Bicycle2.new(size: 'L', parts: Parts.new([11,12,13,14],[chain,tire,shock]))
-      # p mountain_bike.parts.parts
+      mountain_bike = Bicycle2.new(size: 'L', parts: Parts.new([chain,tire,shock]))
+      # mountain_bike.parts = [1,2,3]
+      # p mountain_bike.partss
       p mountain_bike.spares.size
-      # p mountain_bike.parts.methods
+      p mountain_bike.parts.size
     end
   end
   #
