@@ -54,13 +54,16 @@ class NormalItem < Item
 end
 
 class AgedBrie < Item
-  def update_item
-    @sell_in -= 1 unless sell_in == 0
-    @quality += 1 unless quality == 50
+  def update_quality
+    @quality += 1
   end
 end
 
 class Sulfuras < Item
+  def quality_max
+    80
+  end
+
   def update_item
     @quality = 80 unless quality == 80
   end
