@@ -36,23 +36,28 @@ class Parts
   end
 end
 
-road_config =
-  [['chain',        '10-speed'],
-   ['tire_size',    '23'],
-   ['tape_colour',  'red']]
+# road_config =
+#   [['chain',        '10-speed'],
+#    ['tire_size',    '23'],
+#    ['tape_colour',  'red']]
+#
+# mountain_config =
+#   [['chain',        '10-speed'],
+#    ['tire_size',    '2.1'],
+#    ['front_shock',  'Manitou', false],
+#    ['rear_shock',   'Fox']]
 
-mountain_config =
-  [['chain',        '10-speed'],
-   ['tire_size',    '2.1'],
-   ['front_shock',  'Manitou', false],
-   ['rear_shock',   'Fox']]
-
+require 'ostruct'
 module PartsFactory
-  def self.build(config,part_class=Part,parts_class=Parts)
-    parts_array = config.collect{|part_config| part_class.new(
+  def self.build(config,parts_class=Parts)
+    parts_array = config.collect{|part_config| create_part(part_config)}
+    parts_class.new(parts_array)
+  end
+
+  def self.create_part(part_config)
+    OpenStruct.new(
       name:         part_config[0],
       description:  part_config[1],
-      needs_spare:  part_config.fetch(2,true))}
-    parts_class.new(parts_array)
+      needs_spare:  part_config.fetch(2,true))
   end
 end
