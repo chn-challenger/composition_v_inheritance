@@ -69,7 +69,6 @@
 
 
 class GildedRose
-
   attr_reader :items
 
   def initialize(items)
@@ -138,19 +137,29 @@ class BackStagePass
   end
 
   def update_item
-
-    if sell_in > 10
-      @quality += 1
-    elsif sell_in <= 10 && sell_in > 5
-      @quality += 2
-    elsif sell_in <= 5 && sell_in > 1
-      @quality += 3
-    elsif sell_in <= 1
-      @quality = 0
-    end
-
-    @sell_in = @sell_in - 1 unless @sell_in == 0
-
+    @quality += 1 if 10 < sell_in
+    @quality += 2 if 5 < sell_in && sell_in <= 10
+    @quality += 3 if 1 < sell_in && sell_in <= 5
+    @quality = 0 if sell_in <= 1
     @quality = 50 if @quality > 50
+    @sell_in = @sell_in - 1 unless @sell_in == 0
+  end
+end
+
+class Conjured
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def update_item
+    @quality -= 2
+    @quality -= 2 if sell_in == 0
+    @sell_in -= 1
+    @quality = 0 if quality <= 0
+    @sell_in = 0 if sell_in <= 0
   end
 end
