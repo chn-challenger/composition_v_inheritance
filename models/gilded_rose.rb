@@ -79,11 +79,8 @@ class BackStagePass < Item
 end
 
 class Conjured < Item
-  def update_item
+  def update_quality
     @quality -= 2
     @quality -= 2 if sell_in == 0
-    @sell_in -= 1
-    @quality = 0 if quality <= 0
-    @sell_in = 0 if sell_in <= 0
   end
 end

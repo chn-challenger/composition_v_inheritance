@@ -228,35 +228,34 @@ describe BackStagePass do
   end
 end
 
-#   describe Conjured do
-#     describe '#update_item' do
-#       it 'updates under normal circumstance' do
-#         item = described_class.new('Conjured',12,20)
-#         item.update_item
-#         expect(item.sell_in).to eq 11
-#         expect(item.quality).to eq 18
-#       end
-#
-#       it 'updates when sell_in is 0' do
-#         item = described_class.new('BackStagePass',0,20)
-#         item.update_item
-#         expect(item.sell_in).to eq 0
-#         expect(item.quality).to eq 16
-#       end
-#
-#       it 'updates when quality is 0' do
-#         item = described_class.new('BackStagePass',2,0)
-#         item.update_item
-#         expect(item.sell_in).to eq 1
-#         expect(item.quality).to eq 0
-#       end
-#
-#       it 'updates when both are 0' do
-#         item = described_class.new('BackStagePass',0,0)
-#         item.update_item
-#         expect(item.sell_in).to eq 0
-#         expect(item.quality).to eq 0
-#       end
-#     end
-#   end
-# end
+describe Conjured do
+  describe '#update_item' do
+    it 'updates under normal circumstance' do
+      item = described_class.new('Conjured',12,20)
+      item.update_item
+      expect(item.sell_in).to eq 11
+      expect(item.quality).to eq 18
+    end
+
+    it 'updates when sell_in is 0' do
+      item = described_class.new('BackStagePass',0,20)
+      item.update_item
+      expect(item.sell_in).to eq 0
+      expect(item.quality).to eq 16
+    end
+
+    it 'updates when quality is 0' do
+      item = described_class.new('BackStagePass',2,0)
+      item.update_item
+      expect(item.sell_in).to eq 1
+      expect(item.quality).to eq 0
+    end
+
+    it 'updates when both are 0' do
+      item = described_class.new('BackStagePass',0,0)
+      item.update_item
+      expect(item.sell_in).to eq 0
+      expect(item.quality).to eq 0
+    end
+  end
+end
