@@ -1,73 +1,3 @@
-# class GildedRose
-#
-#   def initialize(items)
-#     @items = items
-#   end
-#
-#   def update_quality
-#     @items.each do |item|
-#       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-#         if item.quality > 0
-#           if item.name != "Sulfuras, Hand of Ragnaros"
-#             item.quality = item.quality - 1
-#           end
-#         end
-#       else
-#         if item.quality < 50
-#           item.quality = item.quality + 1
-#           if item.name == "Backstage passes to a TAFKAL80ETC concert"
-#             if item.sell_in < 11
-#               if item.quality < 50
-#                 item.quality = item.quality + 1
-#               end
-#             end
-#             if item.sell_in < 6
-#               if item.quality < 50
-#                 item.quality = item.quality + 1
-#               end
-#             end
-#           end
-#         end
-#       end
-#       if item.name != "Sulfuras, Hand of Ragnaros"
-#         item.sell_in = item.sell_in - 1
-#       end
-#       if item.sell_in < 0
-#         if item.name != "Aged Brie"
-#           if item.name != "Backstage passes to a TAFKAL80ETC concert"
-#             if item.quality > 0
-#               if item.name != "Sulfuras, Hand of Ragnaros"
-#                 item.quality = item.quality - 1
-#               end
-#             end
-#           else
-#             item.quality = item.quality - item.quality
-#           end
-#         else
-#           if item.quality < 50
-#             item.quality = item.quality + 1
-#           end
-#         end
-#       end
-#     end
-#   end
-# end
-#
-# class Item
-#   attr_accessor :name, :sell_in, :quality
-#
-#   def initialize(name, sell_in, quality)
-#     @name = name
-#     @sell_in = sell_in
-#     @quality = quality
-#   end
-#
-#   def to_s()
-#     "#{@name}, #{@sell_in}, #{@quality}"
-#   end
-# end
-
-
 class GildedRose
   attr_reader :items
 
@@ -82,7 +12,7 @@ class GildedRose
   end
 end
 
-class NormalItem
+class Item
   attr_accessor :name, :sell_in, :quality
 
   def initialize(name, sell_in, quality)
@@ -93,49 +23,50 @@ class NormalItem
 
   def update_item
     @sell_in -= 1 unless sell_in == 0
-    @quality -= 1 unless quality == 0
-    @quality -= 1 if sell_in == 0 && quality >= 1
+    update_quality
+    bounding_quality_value
+  end
+
+  def update_quality
+    raise 'SubClassImplement'
+  end
+
+  def bounding_quality_value
+    @quality = quality_max if quality > quality_max
+    @quality = quality_min if quality < quality_min
+  end
+
+  def quality_max
+    50
+  end
+
+  def quality_min
+    0
+  end
+
+end
+
+class NormalItem < Item
+  def update_quality
+    @quality -= 1
+    @quality -= 1 if sell_in == 0
   end
 end
 
-class AgedBrie
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
+class AgedBrie < Item
   def update_item
     @sell_in -= 1 unless sell_in == 0
     @quality += 1 unless quality == 50
   end
 end
 
-class Sulfuras
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
+class Sulfuras < Item
   def update_item
     @quality = 80 unless quality == 80
   end
 end
 
-class BackStagePass
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
+class BackStagePass < Item
   def update_item
     @quality += 1 if 10 < sell_in
     @quality += 2 if 5 < sell_in && sell_in <= 10
@@ -146,15 +77,7 @@ class BackStagePass
   end
 end
 
-class Conjured
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
+class Conjured < Item
   def update_item
     @quality -= 2
     @quality -= 2 if sell_in == 0
