@@ -138,6 +138,19 @@ class BackStagePass
   end
 
   def update_item
-    @quality = 80 unless quality == 80
+
+    if sell_in > 10
+      @quality += 1
+    elsif sell_in <= 10 && sell_in > 5
+      @quality += 2
+    elsif sell_in <= 5 && sell_in > 1
+      @quality += 3
+    elsif sell_in <= 1
+      @quality = 0
+    end
+
+    @sell_in = @sell_in - 1 unless @sell_in == 0
+
+    @quality = 50 if @quality > 50
   end
 end

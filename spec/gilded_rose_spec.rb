@@ -183,17 +183,47 @@ describe Sulfuras do
 end
 
 describe BackStagePass do
-  # describe '#update_item' do
-  #   it 'set quality to 80 if it is not already 80' do
-  #     item = described_class.new('Sulfuras',15,60)
-  #     item.update_item
-  #     expect(item.quality).to eq 80
-  #   end
-  #
-  #   it 'does not change quality if it is 80 already' do
-  #     item = described_class.new('Sulfuras',15,80)
-  #     item.update_item
-  #     expect(item.quality).to eq 80
-  #   end
-  # end
+  describe '#update_item' do
+    it 'updates when sell_in is more than 10' do
+      item = described_class.new('BackStagePass',12,20)
+      item.update_item
+      expect(item.sell_in).to eq 11
+      expect(item.quality).to eq 21
+    end
+
+    it 'updates when sell_in is 7' do
+      item = described_class.new('BackStagePass',7,20)
+      item.update_item
+      expect(item.sell_in).to eq 6
+      expect(item.quality).to eq 22
+    end
+
+    it 'updates when sell_in is 2' do
+      item = described_class.new('BackStagePass',2,20)
+      item.update_item
+      expect(item.sell_in).to eq 1
+      expect(item.quality).to eq 23
+    end
+
+    it 'updates when sell_in is 0' do
+      item = described_class.new('BackStagePass',0,20)
+      item.update_item
+      expect(item.sell_in).to eq 0
+      expect(item.quality).to eq 0
+    end
+
+    it 'updates when quality is already 50' do
+      item = described_class.new('BackStagePass',11,50)
+      item.update_item
+      expect(item.sell_in).to eq 10
+      expect(item.quality).to eq 50
+    end
+
+    it 'updates when quality is already 50' do
+      item = described_class.new('BackStagePass',1,40)
+      item.update_item
+      expect(item.sell_in).to eq 0
+      expect(item.quality).to eq 0
+    end
+  end
 end
