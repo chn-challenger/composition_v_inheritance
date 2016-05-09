@@ -11,16 +11,6 @@ class Bicycle2
   end
 end
 
-class Part
-  attr_reader :name, :description, :needs_spare
-
-  def initialize(args)
-    @name = args[:name]
-    @description = args[:description]
-    @needs_spare = args.fetch(:needs_spare,true)
-  end
-end
-
 require 'forwardable'
 class Parts
   include Enumerable
@@ -36,17 +26,6 @@ class Parts
   end
 end
 
-# road_config =
-#   [['chain',        '10-speed'],
-#    ['tire_size',    '23'],
-#    ['tape_colour',  'red']]
-#
-# mountain_config =
-#   [['chain',        '10-speed'],
-#    ['tire_size',    '2.1'],
-#    ['front_shock',  'Manitou', false],
-#    ['rear_shock',   'Fox']]
-
 require 'ostruct'
 module PartsFactory
   def self.build(config,parts_class=Parts)
@@ -61,3 +40,14 @@ module PartsFactory
       needs_spare:  part_config.fetch(2,true))
   end
 end
+
+# road_config =
+#   [['chain',        '10-speed'],
+#    ['tire_size',    '23'],
+#    ['tape_colour',  'red']]
+#
+# mountain_config =
+#   [['chain',        '10-speed'],
+#    ['tire_size',    '2.1'],
+#    ['front_shock',  'Manitou', false],
+#    ['rear_shock',   'Fox']]
