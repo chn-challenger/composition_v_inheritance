@@ -35,3 +35,24 @@ class Parts
     select{|part| part.needs_spare}
   end
 end
+
+road_config =
+  [['chain',        '10-speed'],
+   ['tire_size',    '23'],
+   ['tape_colour',  'red']]
+
+mountain_config =
+  [['chain',        '10-speed'],
+   ['tire_size',    '2.1'],
+   ['front_shock',  'Manitou', false],
+   ['rear_shock',   'Fox']]
+
+module PartsFactory
+  def self.build(config,part_class=Part,parts_class=Parts)
+    parts_array = config.collect{|part_config| part_class.new(
+      name:         part_config[0],
+      description:  part_config[1],
+      needs_spare:  part_config.fetch(2,true))}
+    parts_class.new(parts_array)
+  end
+end

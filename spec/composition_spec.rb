@@ -34,8 +34,24 @@ describe Parts do
       mountain_bike = Bicycle2.new(size: 'L', parts: Parts.new([chain,tire,shock]))
       # mountain_bike.parts = [1,2,3]
       # p mountain_bike.partss
-      p mountain_bike.spares.size
-      p mountain_bike.parts.size
+      # p mountain_bike.spares.size
+      # p mountain_bike.parts.size
+
+      road_config =
+        [['chain',        '10-speed'],
+         ['tire_size',    '23'],
+         ['tape_colour',  'red']]
+
+      mountain_config =
+        [['chain',        '10-speed'],
+         ['tire_size',    '2.1'],
+         ['front_shock',  'Manitou', false],
+         ['rear_shock',   'Fox']]
+
+
+      road_parts = PartsFactory.build(road_config)
+      road_bike = Bicycle2.new(size:'L', parts: road_parts)
+      p road_bike 
     end
   end
   #
