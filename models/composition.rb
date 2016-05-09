@@ -15,10 +15,18 @@ require 'forwardable'
 class Parts
   include Enumerable
   extend Forwardable
-  def_delegators :@parts, :size, :each
+  def_delegators :@parts, :size, :each, :[]
 
   def initialize(parts)
     @parts = parts
+  end
+
+  def ==(parts)
+    return false unless size == parts.size
+    for i in 0..size-1
+      return false unless parts[i] == self[i]
+    end
+    return true
   end
 
   def spares
@@ -28,26 +36,19 @@ end
 
 require 'ostruct'
 module PartsFactory
-  def self.build(config,parts_class=Parts)
-    parts_array = config.collect{|part_config| create_part(part_config)}
-    parts_class.new(parts_array)
-  end
-
   def self.create_part(part_config)
     OpenStruct.new(
       name:         part_config[0],
       description:  part_config[1],
       needs_spare:  part_config.fetch(2,true))
   end
-end
 
-# road_config =
-#   [['chain',        '10-speed'],
-#    ['tire_size',    '23'],
-#    ['tape_colour',  'red']]
-#
-# mountain_config =
-#   [['chain',        '10-speed'],
-#    ['tire_size',    '2.1'],
-#    ['front_shock',  'Manitou', false],
-#    ['rear_shock',   'Fox']]
+  def self.create_parts(config)
+    config.collect{|part_config| create_part(part_config)}
+  end
+
+  def self.build(config,parts_class=Parts)
+    parts_array = create_parts(config)
+    parts_class.new(parts_array)
+  end
+end
