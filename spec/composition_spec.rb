@@ -86,26 +86,26 @@ describe PartsFactory do
     end
   end
 
-  # describe '#self.create_parts' do
-  #   it 'can create a parts array given a configurations array' do
-  #     config_1 = ['name_1','description_1']
-  #     config_2 = ['name_2','description_2']
-  #     configs = [config_1,config_2]
-  #     allow(described_class).to receive(:create_part).with(config_1).and_return('part_1')
-  #     allow(described_class).to receive(:create_part).with(config_2).and_return('part_2')
-  #     expected_parts = ['part_1','part_2']
-  #     expect(described_class.create_parts(configs)).to eq expected_parts
-  #   end
-  # end
-  #
-  # describe '#self.build' do
-  #   it 'can build a parts object from a given configuration and class name' do
-  #     config_double = double(:config_double)
-  #     allow(described_class).to receive(:create_parts).with(config_double).and_return(['parts_array'])
-  #     expected_obj = Parts.new(['parts_array'])
-  #     expect(described_class.build(config_double)).to eq expected_obj
-  #   end
-  # end
+  describe '#self.create_parts' do
+    it 'can create a parts array given a configurations array' do
+      config_1 = ['name_1','description_1']
+      config_2 = ['name_2','description_2']
+      configs = [config_1,config_2]
+      allow(described_class).to receive(:create_part).with(config_1).and_return('part_1')
+      allow(described_class).to receive(:create_part).with(config_2).and_return('part_2')
+      expected_parts = ['part_1','part_2']
+      expect(described_class.create_parts(configs)).to eq expected_parts
+    end
+  end
+
+  describe '#self.build' do
+    it 'can build a parts object from a given configuration and class name' do
+      config_double = double(:config_double)
+      allow(described_class).to receive(:create_parts).with(config_double).and_return(['parts_array'])
+      expected_obj = Parts.new(['parts_array'])
+      expect(described_class.build(config_double)).to eq expected_obj
+    end
+  end
 
   # road_config =
   #   [['chain',        '10-speed'],
