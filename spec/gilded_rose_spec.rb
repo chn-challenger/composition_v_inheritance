@@ -1,36 +1,26 @@
 require './models/gilded_rose'
 
-# describe GildedRose do
-#   describe '#update_quality' do
-#     context 'normal item' do
-#       shared_context 'normal item' do
-#         before(:all) do
-#           @normal_item = Item.new('Normal Rose',15,25)
-#           @gilded_rose = described_class.new([@normal_item])
-#           @gilded_rose.update_quality
-#         end
-#       end
-#
-#       include_context 'normal item'
-#
-#       it 'updates the sell_in value of a normal item' do
-#         expect(@normal_item.sell_in).to eq 14
-#       end
-#
-#       it 'updates the quality value of a normal item' do
-#         expect(@normal_item.quality).to eq 24
-#       end
-#
-#     end
-#   end
-# end
+describe GildedRose do
+  describe '#update_quality' do
+      it 'invoke the update_item method for each item' do
+        item_1 = double(:item_1,update_item:'item_1_updated')
+        item_2 = double(:item_2,update_item:'item_2_updated')
+        items = [item_1,item_2]
+        gilded_rose = described_class.new(items)
+        #the and_return matcher not working
+        expect(item_1).to receive(:update_item).and_return 'item_1_updated'
+        expect(item_2).to receive(:update_item).and_return 'item_2_updated'
+        gilded_rose.update_items
+      end
+  end
+end
 
 describe NormalItem do
   describe '#update_item' do
     context 'normal item normal circumstance' do
       shared_context 'normal circumstance' do
         before(:all) do
-          @normal_item = NormalItem.new('Normal Rose',15,25)
+          @normal_item = described_class.new('Normal Rose',15,25)
           @normal_item.update_item
         end
       end
@@ -49,7 +39,7 @@ describe NormalItem do
     context 'normal item zero quality' do
       shared_context 'zero quality' do
         before(:all) do
-          @normal_item = NormalItem.new('Normal Rose',15,0)
+          @normal_item = described_class.new('Normal Rose',15,0)
           @normal_item.update_item
         end
       end
@@ -68,7 +58,7 @@ describe NormalItem do
     context 'normal item zero sell_in non-zero quality' do
       shared_context 'zero sell_in non-zero quality' do
         before(:all) do
-          @normal_item = NormalItem.new('Normal Rose',0,16)
+          @normal_item = described_class.new('Normal Rose',0,16)
           @normal_item.update_item
         end
       end
@@ -87,7 +77,7 @@ describe NormalItem do
     context 'normal item zero both' do
       shared_context 'zero both' do
         before(:all) do
-          @normal_item = NormalItem.new('Normal Rose',0,0)
+          @normal_item = described_class.new('Normal Rose',0,0)
           @normal_item.update_item
         end
       end

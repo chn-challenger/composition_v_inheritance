@@ -6,9 +6,7 @@ class GildedRose
   end
 
   def update_items
-    items.each do |item|
-      item.update_item
-    end
+    items.each{|item| item.update_item}
   end
 end
 
