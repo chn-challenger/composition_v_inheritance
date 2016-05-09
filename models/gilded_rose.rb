@@ -22,9 +22,9 @@ class Item
   end
 
   def update_item
-    @sell_in -= 1 unless sell_in == 0
     update_quality
     bounding_quality_value
+    @sell_in -= 1 unless sell_in == 0
   end
 
   def update_quality
@@ -64,19 +64,17 @@ class Sulfuras < Item
     80
   end
 
-  def update_item
+  def update_quality
     @quality = 80 unless quality == 80
   end
 end
 
 class BackStagePass < Item
-  def update_item
+  def update_quality
     @quality += 1 if 10 < sell_in
     @quality += 2 if 5 < sell_in && sell_in <= 10
     @quality += 3 if 1 < sell_in && sell_in <= 5
     @quality = 0 if sell_in <= 1
-    @quality = 50 if @quality > 50
-    @sell_in = @sell_in - 1 unless @sell_in == 0
   end
 end
 
